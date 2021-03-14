@@ -36,7 +36,7 @@
       register: 'whoami'
     - name: 'Download & unarchive wordpress'
       unarchive:
-        src: '/tmp/wordpress.tar.gz'
+        src: 'https://wordpress.org/latest.tar.gz'
         dest: '/var/www/'
         remote_src: true
       become: true
