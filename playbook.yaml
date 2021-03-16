@@ -3,19 +3,21 @@
   remote_user: 'host'
   vars:
     var: 'user'
+    program_list:
+      -  'nginx'
+      -  'mysql-server'
+      -  'php-fpm'
+      -  'php-mysql'
+      -  'python3-pip'
+      -  'python3-pymysql'
+
   gather_facts: false
   tasks:
     - name: 'install required soft (nginx, mysql, php, phyton)'
       apt:
         update_cache: true
         force_apt_get: true
-        name:
-          -  'nginx'      
-          -  'mysql-server'
-          -  'php-fpm'  
-          -  'php-mysql'
-          -  'python3-pip'
-          -  'python3-pymysql'
+        name: '{{ program_list }}'
         state: 'present'
       become: true  
     - name: 'Create a new database with name wordpress_db'
