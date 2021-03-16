@@ -10,16 +10,16 @@
       -  'php-mysql'
       -  'python3-pip'
       -  'python3-pymysql'
-
   gather_facts: false
   tasks:
     - name: 'install required soft (nginx, mysql, php, phyton)'
       apt:
         update_cache: true
         force_apt_get: true
-        name: '{{ program_list }}'
+        name: '{{ item }}'
         state: 'present'
       become: true  
+      loop: '{{  program_list }}'
     - name: 'Create a new database with name wordpress_db'
       community.mysql.mysql_db:
         login_unix_socket: '/var/run/mysqld/mysqld.sock'
