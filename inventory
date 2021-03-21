@@ -1,2 +1,2 @@
 [webservers]
-10.10.10.5  ansible_connection=ssh ansible_user=host
+web-server ansible_host=10.10.10.5  ansible_connection=ssh ansible_user=host ansible_sudo_pass=Epam374+ ansible_ssh_pass=Epam374+
