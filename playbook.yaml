@@ -2,7 +2,7 @@
 - hosts: 'webservers'
   remote_user: 'host'
   vars:
-    var: 'user'
+    user: ''
     program_list:
       -  'nginx'
       -  'mysql-server'
@@ -36,7 +36,7 @@
     - name: 'Get the hosts username'
       become: 'false'
       local_action: 'command whoami'
-      register: 'whoami'
+      register: 'user'
     - name: 'Download & unarchive wordpress'
       unarchive:
         src: 'https://wordpress.org/latest.tar.gz'
@@ -45,13 +45,13 @@
       become: true
     - name: 'Copy wp-config for datebase'
       ansible.builtin.copy:
-        src: '/home/{{ whoami.stdout }}/ansible_homework/wp-config.php'  
+        src: '/home/{{ user.stdout }}/ansible_homework/wp-config.php'  
         dest: '/var/www/wordpress/wp-config.php'
         mode: '0664'
       become: true
     - name: 'copy  nginx config'
       ansible.builtin.copy:
-        src: '/home/{{ whoami.stdout }}/ansible_homework/nginx.conf'
+        src: '/home/{{ user.stdout }}/ansible_homework/nginx.conf'
         dest: '/etc/nginx/sites-available/wordpress'
         owner: 'www-data'
         group: 'www-data'
